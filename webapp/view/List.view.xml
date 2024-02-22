@@ -1,0 +1,68 @@
+<mvc:View controllerName="numenit.com.hack2buildgenai.controller.List"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+	xmlns:f="sap.f"
+    xmlns="sap.m" displayBlock="true">
+        <f:DynamicPage id="page" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="{/titleClickable}">
+			
+			<f:content>
+				<Table id="mainList"
+						sticky="HeaderToolbar,ColumnHeaders"
+						inset="false"
+						items="{
+							path: 'newsModel>/news'
+						}"
+					   class="sapFDynamicPageAlignContent"
+					   width="auto">
+					<headerToolbar>
+						<Toolbar>
+							<Title text="News" level="H2"/>
+						</Toolbar>
+					</headerToolbar>
+					<columns>
+						<Column
+								width="12em">
+							<Text text="Title" />
+						</Column>
+                        <Column
+								width="8em">
+							<Text text="Summary" />
+						</Column>
+						<Column
+								minScreenWidth="Tablet"
+								demandPopin="true">
+							<Text text="Url" />
+						</Column>
+						<Column
+								minScreenWidth="Tablet"
+								demandPopin="true"
+								hAlign="End">
+							<Text text="Author" />
+						</Column>
+                        <Column>
+							<Text text="Date" />
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text
+										text="{newsModel>title}"
+                                        />
+								<Text
+										text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
+								<Text
+										text="{newsModel>url}" />
+								<Text
+										text="{newsModel>author}" />
+                                <Text
+										text="{newsModel>publish_date}" />        
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</f:content>
+			
+		</f:DynamicPage>
+</mvc:View>

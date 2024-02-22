@@ -1,0 +1,21 @@
+<mvc:View controllerName="numenit.com.hack2buildgenai.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m" displayBlock="true">
+    <Page id="page" title="{i18n>title}">
+        <l:VerticalLayout id="mainVlayout" class="sapUiContentPadding">
+            <Label id="rawMaterialLabel" text="Raw material" labelFor="rawMaterialInput" />
+            <Input id="rawMaterialInput" placeholder="Enter a raw material" required="true" />
+            <Label id="regionInputLabel" text="Region" labelFor="regionInput" />
+            <Input id="regionInput" placeholder="Enter a region" required="true" />
+        </l:VerticalLayout>
+        <footer> 
+            <OverflowToolbar id="otbFooter">
+                <ToolbarSpacer id="tbs1"/>
+                <Button id="btnSearch" type="Emphasized" text="Search" press=".onNavToNewsList"/>
+                <Button id="btnNotFound" type="Emphasized" text="Display Not Found" press=".onNavToNotFound"/>
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>
