@@ -23,13 +23,18 @@
 			}"
 			change="handleChange"
 			class="sapUiSmallMarginBottom"/>
+            
+            <Label text="Enter Company Information" />
+            <TextArea id= "infoInput" placeholder="Enter Text" growing="true" growingMaxLines="7" width="100%"/>
+
+            <Label text="Enter Suppliers" />
+            <TextArea id= "supplierInput" placeholder="Enter Text" growing="true" growingMaxLines="7" width="100%"/>
 
         </l:VerticalLayout>
         <footer> 
             <OverflowToolbar id="otbFooter">
                 <ToolbarSpacer id="tbs1"/>
-                <Button id="btnSearch" type="Emphasized" text="Abacaxi" press=".onNavToNewsList"/>
-                <Button id="btnNotFound" type="Emphasized" text="Display Not Found" press=".onNavToNotFound"/>
+                <Button id="btnSearch" type="Emphasized" text="Clipping" press=".onNavToNewsList"/>
             </OverflowToolbar>
         </footer>
     </Page>

@@ -20,7 +20,10 @@ sap.ui.define([
 
                 var date = this.getView().byId("dateInput").getValue();
 
+                var info = this.getView().byId("infoInput").getValue();
+
                 console.log("data - " + date);
+                console.log("info - " + info);
 
                 var newsModel = this.getView().getModel("newsModel");
 
