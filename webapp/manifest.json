@@ -116,7 +116,7 @@
         },
         {
           "name": "RouteList",
-          "pattern": "NewsList/RawMaterial='{RawMaterial}'&Region='{Region}'",
+          "pattern": "NewsList/RawMaterial='{RawMaterial}'",
           "target": [
             "TargetList"
           ]

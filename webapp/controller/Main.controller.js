@@ -17,6 +17,11 @@ sap.ui.define([
             onNavToNewsList: function () {
                 var rawMaterial = this.getView().byId("rawMaterialInput").getValue();
                 var region = this.getView().byId("regionInput").getValue();
+
+                var date = this.getView().byId("dateInput").getValue();
+
+                console.log("data - " + date);
+
                 var newsModel = this.getView().getModel("newsModel");
 
                 var requestHeaders = {
@@ -29,7 +34,17 @@ sap.ui.define([
                     headers: requestHeaders
                 }
 
-                var urlToFetch = "https://api.worldnewsapi.com/search-news?text=" + rawMaterial + " " + region;
+                var url;
+
+                if(date){
+                    console.log("if");
+                    url = "https://api.worldnewsapi.com/search-news?text=" + rawMaterial + " " + region + "&earliest-publish-date=" + date;
+                }else{
+                    console.log("else");
+                    url = "https://api.worldnewsapi.com/search-news?text=" + rawMaterial + " " + region;
+                }
+                
+                var urlToFetch = url;
                 fetch(urlToFetch, requestOptions)
                     .then(response => response.json())
                     .then(result => newsModel.setData(result))
@@ -39,6 +54,7 @@ sap.ui.define([
                     RawMaterial: rawMaterial,
                     Region: region
                 });
+                
             },
 
             onNavToNotFound: function () {
