@@ -1,48 +1,62 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel",
-    "../controller/BaseController"
+    "sap/ui/model/json/JSONModel"
 ],
-    /**
-     * @param {typeof sap.ui.core.mvc.Controller} Controller 
-     */
-    function (Controller, JSONModel, BaseController) {
-        "use strict";
+     /**
+      * @param {typeof sap.ui.core.mvc.Controller} Controller
+      */
+      function (Controller, JSONModel) {
+                "use strict";
+        
+                return Controller.extend("numenit.com.hack2buildgenai.controller.List", {
+                    onInit: function () {
+            
+                            },
+                    onPressLoadData:async function(){
+                        this.getView().byId("reOrderTable").removeAllColumns();
+                        var oMydata = new sap.ui.model.json.JSONModel();
+                                oMydata.loadData("../mockdata/mockresult.json",false);
+                        oMydata.attachRequestCompleted(function() {
+                            console.log(JSON.stringify(oMydata.getData()));
+                            sap.ui.getCore().setModel(oMydata);
+                            var oTable = this.getView().byId("reOrderTable"); 
 
-        return BaseController.extend("numenit.com.hack2buildgenai.controller.List", {
+                            var aKeys = Object.keys(oMydata.getData().Analysis[0]);
 
-            onInit: function () {
-                var oRouter = this.getRouter();
+                            aKeys.forEach(function(sKey) {
+                                oTable.addColumn(new sap.ui.table.Column({
+                                    label: new sap.m.Label({text: sKey}),
+                                    template: new sap.m.Text().bindProperty("text", sKey),
+                                    sortProperty: sKey,
+                                    filterProperty: sKey
+                                        }));
+                                    });
+                    
+                            oTable.setModel(oMydata);
+                            oTable.bindRows("/Analysis");
+                            oTable.setVisible (true);
+                    
+                        }.bind(this));
+                    },
+            
+                    onFileChange: function(oEvent) {
+                        var oFileUploader = this.getView().byId("fileUploader");
+                        if (!oFileUploader.getValue()) {
+                            // Nenhum arquivo foi selecionado
+                            return;
+                            }
 
-                oRouter.getRoute("RouteList").attachMatched(this._onRouteMatched, this);
-            },
-
-            _onRouteMatched: function (oEvent) {
-                var oArgs, oView;
-
-                oArgs = oEvent.getParameter("arguments");
-                oView = this.getView();
-
-                oView.bindElement({
-                    path: "/NewsList(" + "RawMaterial=" + oArgs.RawMaterial + "&" + "Region=" + oArgs.Region + ")",
-                    events: {
-                        change: this._onBindingChange.bind(this),
-                        dataRequested: function (oEvent) {
-                            oView.setBusy(true);
-                        },
-                        dataReceived: function (oEvent) {
-                            oView.setBusy(false);
-                        }
-                    }
-                });
-            },
-
-            _onBindingChange: function (oEvent) {
-                // No data for the binding
-                if (!this.getView().getBindingContext()) {
-                    this.getRouter().getTargets().display("NotFound");
-                }
-            }
-
-        });
-    });
+                        var file = oEvent.getParaneter("files") && oEvent.getParameter("files")[0];
+                        if (file && window.FileReader) {
+                            var reader = new FileReader();
+                              reader.onload = function(e) {
+                                var content = e.target.result;
+                                var jsonData = JSON.parse(content);
+                                var oJsonModel = new JSONModel(jsonData);
+                                this.getView().setModel(oJsonModel, "teste");
+                            }.bind(this);
+                            reader.readAsText(file);
+                       }
+                   }
+               });
+          });
